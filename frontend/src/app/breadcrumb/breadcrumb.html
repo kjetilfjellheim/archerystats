@@ -1,0 +1,7 @@
+<div class="panel panel-default breadcrumb-container">
+    <div class="container-fluid">
+      <ol class="breadcrumb">
+          <li *ngFor="let breadcrumb of breadcrumbs"><a routerLink="{{breadcrumb.url}}" routerLinkActive="active">{{breadcrumb.name}}</a></li>
+      </ol>
+    </div>
+</div>

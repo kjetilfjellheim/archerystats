@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "outDir": "gendir",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "es2015", "dom", "scriptHost"],
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "inlineSourceMap": true
+  },
+  "files": [
+    "config/external.ts",
+    "app/main.ts"
+  ],
+  "angularCompilerOptions": {
+   "skipMetadataEmit" : false
+ }
+}

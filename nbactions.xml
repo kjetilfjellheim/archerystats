@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-kjetilf-deploy-jit</actionName>
+            <displayName>kjetilf-deploy-jit</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <angular.build>build:jit</angular.build>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>kjetilf-deploy</activatedProfile>
+            </activatedProfiles>
+        </action>
+        <action>
+            <actionName>CUSTOM-kjetilf-deploy-aot</actionName>
+            <displayName>kjetilf-deploy-aot</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+            <properties>
+                <angular.build>build:aot</angular.build>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>kjetilf-deploy</activatedProfile>
+            </activatedProfiles>
+        </action>
+        
+    </actions>

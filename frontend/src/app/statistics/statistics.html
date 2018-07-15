@@ -1,0 +1,26 @@
+<div class="main">
+  <div class="container-fluid">
+      <p-tabView>
+        <p-tabPanel header="Vinner">
+          <p-chart type="bar" width="1400px" height="600px" [data]="per1" [options]="options"></p-chart>
+          <h3>Fordeling av hvor mange spillere som har valgt hvilke vinnere.</h3>
+        </p-tabPanel>
+        <p-tabPanel header="Finaler">
+          <p-chart type="bar" width="1400px" height="600px" [data]="per2" [options]="options"></p-chart>
+          <h3>Fordeling av hvor mange spillere som har valgt hvilke finalister.</h3>
+        </p-tabPanel>
+        <p-tabPanel header="Semifinaler">
+          <p-chart type="bar" width="1400px" height="600px" [data]="per4" [options]="options"></p-chart>
+          <h3>Fordeling av hvor mange spillere som har valgt hvilke semifinalister.</h3>
+        </p-tabPanel>
+        <p-tabPanel header="Kvartfinaler">
+          <p-chart type="bar" width="1400px" height="600px" [data]="per8" [options]="options"></p-chart>
+          <h3>Fordeling av hvor mange spillere som har valgt hvilke kvartfinalister.</h3>
+        </p-tabPanel>
+        <p-tabPanel header="8 dels finaler">
+          <p-chart type="bar" width="1400px" height="600px" [data]="per16" [options]="options"></p-chart>
+          <h3>Fordeling av hvor mange spillere som har valgt hvilke åttendelsfinalister.</h3>
+        </p-tabPanel>
+      </p-tabView>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="main">
+  <div class="container-fluid">
+    <p-dataTable [value]="ranking" [rowStyleClass]="lookupRowStyleClass">
+      <p-column field="rank" header="Plassering" ></p-column>
+      <p-column field="name" header="Navn" ></p-column>
+      <p-column field="totalpoints" header="Totalt antall poeng" ></p-column>
+      <p-column field="per16points" header="Poeng åttendelsfinalen" styleClass="grey"></p-column>
+      <p-column field="per8points" header="Poeng kvartfinalen" styleClass="grey"></p-column>
+      <p-column field="per4points" header="Poeng semifinalen" styleClass="grey"></p-column>
+      <p-column field="per2points" header="Poeng finalen" styleClass="grey"></p-column>
+      <p-column field="per1points" header="Poeng vinner" styleClass="grey"></p-column>
+      <p-column field="goalpoints" header="Poeng for mål" styleClass="grey"></p-column>
+  </p-dataTable>
+  </div>
+</div>

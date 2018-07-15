@@ -1,0 +1,6 @@
+/frontend/src/dist
+/frontend/src/node_modules
+/frontend/target
+/backend/target
+/target/
+
