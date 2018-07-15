@@ -4,7 +4,9 @@ import {Observable} from 'rxjs/Rx';
 import { Message } from 'primeng/primeng';
 
 import { StatisticsService } from './statistics.service';
-import { Statistics } from './statistics';
+import { UserService } from './user.service';
+import { Total } from './statistics';
+import { User } from './user';
 
 @Component({
     templateUrl: './statistics.html',
@@ -12,111 +14,111 @@ import { Statistics } from './statistics';
 })
 export class StatisticsComponent implements OnInit {
 
-  constructor(private statisticsService : StatisticsService) { }
+  constructor(private statisticsService : StatisticsService, private userService : UserService) { }
 
   @Input() messages : Message[] = []
 
-  per16 : any;
-  per8 : any;
-  per4 : any;
-  per2 : any;
-  per1 : any;
   options: any;
+  totalHorizontalData: any;
+  totalVerticalData: any;
+  totalDateRange: Date[] = [];
+  totalDistance: number = 5;
+  totalUser: User = new User();
 
-   ngOnInit(): void {
+  /**
+  * Options
+  */
+  totalDateRangeChoice: Date[] = [];
+  totalDistanceChoice: number = 5;
+  totalUserChoice : User = new User();
 
-     this.options = {
-           scales: {
-              yAxes: [{ticks: {min: 0, max:20}}]
-           }
-        };
-     this.getStatistics();
+  users: any[] = [];
+
+  ngOnInit(): void {
+    this.userService
+       .getUsers()
+       .subscribe(users =>
+         {
+           this.users = users;
+         },
+         (error) =>
+         {
+           this.messages.push({severity:'error', summary:'Error getting users.', detail:error});
+         });
+    this.totalDateRange.push(new Date(new Date().getFullYear(), 0, 1));
+    this.totalDateRange.push(new Date(new Date().getFullYear(), 11, 31));
+    this.totalDateRangeChoice.push(new Date(new Date().getFullYear(), 0, 1));
+    this.totalDateRangeChoice.push(new Date(new Date().getFullYear(), 11, 31));
+    this.options = {
+      responsive: false,
+      maintainAspectRatio: true
+    };
+   this.getTotals();
+  }
+
+  regenerateTotal() {
+    this.totalDateRange[0] = this.totalDateRangeChoice[0];
+    this.totalDateRange[1] = this.totalDateRangeChoice[1];
+    this.totalDistance = this.totalDistanceChoice;
+    this.totalUser = this.totalUserChoice;
+    this.getTotals();
+  }
+
+getTotals(): void {
+  this.statisticsService
+   .getStatisticsTotal(this.totalDateRange, this.totalDistance, this.totalUser.id)
+   .subscribe(total =>
+     {
+       let verticalData = [];
+       verticalData.push(total.percentHigh);
+       verticalData.push(total.percentVerticalCenter);
+       verticalData.push(total.percentLow);
+       this.totalVerticalData = {
+            labels: ['High', 'Center', 'Low'],
+            datasets: [
+                {
+                  data: verticalData,
+                  backgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ],
+                  hoverBackgroundColor: [
+                      "#FF6384",
+                      "#36A2EB",
+                      "#FFCE56"
+                  ]
+                }
+            ]
+        }
+
+       let horizontalData = [];
+       horizontalData.push(total.percentLeft);
+       horizontalData.push(total.percentHorizontalCenter);
+       horizontalData.push(total.percentRight);
+       this.totalHorizontalData = {
+            labels: ['Left', 'Center', 'Right'],
+            datasets: [
+                {
+                    data: horizontalData,
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ]
+                }
+            ]
+        }
+     },
+     (error) =>
+     {
+       this.messages.push({severity:'error', summary:'Error getting totals.', detail:error});
+     });
    }
 
-  getStatistics(): void {
-    this.statisticsService
-     .getStatistics()
-     .subscribe(statistics =>
-       {
-         this.getPer16(statistics);
-         this.getPer8(statistics);
-         this.getPer4(statistics);
-         this.getPer2(statistics);
-         this.getPer1(statistics);
-       },
-       (error) =>
-       {
-         this.messages.push({severity:'error', summary:'Error getting statistics.', detail:error});
-       });
-     }
-
-     getPer16(statistics: Statistics) {
-       this.per16 = {
-          labels: statistics.labelsPer16,
-           datasets: [
-               {
-                   label: '8 dels finaler (1 poeng)',
-                   backgroundColor: '#42A5F5',
-                   borderColor: '#1E88E5',
-                   data: statistics.dataPer16
-               }
-           ]
-       }
-     }
-
-     getPer8(statistics: Statistics) {
-       this.per8 = {
-         labels: statistics.labelsPer8,
-           datasets: [
-               {
-                   label: 'Kvartfinaler (2 poeng)',
-                   backgroundColor: '#42A5F5',
-                   borderColor: '#1E88E5',
-                   data: statistics.dataPer8
-               }
-           ]
-       }
-     }
-
-     getPer4(statistics: Statistics) {
-       this.per4 = {
-          labels: statistics.labelsPer4,
-          datasets: [
-               {
-                   label: 'Semifinaler (3 poeng)',
-                   backgroundColor: '#42A5F5',
-                   borderColor: '#1E88E5',
-                   data: statistics.dataPer4
-               }
-           ]
-         }
-     }
-
-     getPer2(statistics: Statistics) {
-       this.per2 = {
-         labels: statistics.labelsPer2,
-         datasets: [
-               {
-                   label: 'Finaler (4 poeng)',
-                   backgroundColor: '#42A5F5',
-                   borderColor: '#1E88E5',
-                   data: statistics.dataPer2
-               }
-           ]
-         }
-     }
-
-     getPer1(statistics: Statistics) {
-       this.per1 = {
-           labels: statistics.labelsPer1,
-           datasets: [
-               {
-                   label: 'Vinner (5 poeng)',
-                   backgroundColor: '#42A5F5',
-                   borderColor: '#1E88E5',
-                   data: statistics.dataPer1
-               }
-           ]
-         }
-     }
 }

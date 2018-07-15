@@ -1,25 +1,43 @@
 <div class="main">
   <div class="container-fluid">
       <p-tabView>
-        <p-tabPanel header="Vinner">
-          <p-chart type="bar" width="1400px" height="600px" [data]="per1" [options]="options"></p-chart>
-          <h3>Fordeling av hvor mange spillere som har valgt hvilke vinnere.</h3>
-        </p-tabPanel>
-        <p-tabPanel header="Finaler">
-          <p-chart type="bar" width="1400px" height="600px" [data]="per2" [options]="options"></p-chart>
-          <h3>Fordeling av hvor mange spillere som har valgt hvilke finalister.</h3>
-        </p-tabPanel>
-        <p-tabPanel header="Semifinaler">
-          <p-chart type="bar" width="1400px" height="600px" [data]="per4" [options]="options"></p-chart>
-          <h3>Fordeling av hvor mange spillere som har valgt hvilke semifinalister.</h3>
-        </p-tabPanel>
-        <p-tabPanel header="Kvartfinaler">
-          <p-chart type="bar" width="1400px" height="600px" [data]="per8" [options]="options"></p-chart>
-          <h3>Fordeling av hvor mange spillere som har valgt hvilke kvartfinalister.</h3>
-        </p-tabPanel>
-        <p-tabPanel header="8 dels finaler">
-          <p-chart type="bar" width="1400px" height="600px" [data]="per16" [options]="options"></p-chart>
-          <h3>Fordeling av hvor mange spillere som har valgt hvilke åttendelsfinalister.</h3>
+        <p-tabPanel header="Totals">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <label>Date range</label>
+                <p-calendar [(ngModel)]="totalDateRangeChoice" selectionMode="range" readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2018:2020" dateFormat="M d, yy" inputId="labelDateRange" [inputStyle]="{'width':'200px'}"></p-calendar>
+                <label for="distance">Distance</label>
+                <input name="distance" type="number" id="distance" placeholder="Min: 5, max: 100" min="5" max="100" [(ngModel)]="totalDistanceChoice" class="ng-tns-c4-1 ui-dropdown-label ui-inputtext ui-corner-all ng-star-inserted"/>
+                <label for="user">User</label>
+                <p-dropdown [options]="users" [(ngModel)]="totalUserChoice" filter="true" inputId="user" dataKey="id" optionLabel="name" autoDisplayFirst="false" placeholder="Not selected"></p-dropdown>
+                <button type="button" class="btn btn-primary"(click)="regenerateTotal()">Show</button>
+              </div>
+              <div class="col-md-12">
+                <hr>
+              </div>
+              <div class="col-md-4">
+                <label>Date range</label>
+                <p>{{ totalDateRange[0] | date:'mediumDate' }} - {{ totalDateRange[1] | date:'mediumDate' }}</p>
+              </div>
+              <div class="col-md-4">
+                <label>Distance</label>
+                <p>{{ totalDistance }}m</p>
+              </div>
+              <div class="col-md-4">
+                <label>User</label>
+                <p>{{ totalUser.name }}</p>
+              </div>
+              <div class="col-md-6">
+                <p-chart type="pie" width="400px" height="400px" [data]="totalHorizontalData" [options]="options"></p-chart>
+                <h4>Horizontal distribution</h4>
+              </div>
+              <div class="col-md-6">
+                <p-chart type="pie" width="400px" height="400px" [data]="totalVerticalData" [options]="options"></p-chart>
+                <h4>Vertical distribution</h4>
+              </div>
+            </div>
+          </div>
         </p-tabPanel>
       </p-tabView>
   </div>

@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class DBconfig {
-
+    /**
+     * Class logger.
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(DBconfig.class);    
     
     @Autowired

@@ -14,4 +14,6 @@ public interface UserDao {
 
     User findById(String userId);
     
+    User findByName(String name);
+    
 }

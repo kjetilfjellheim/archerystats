@@ -15,15 +15,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  *
  * @author Kjetil Fjellheim
  */
-
 @Configuration
 @EnableScheduling
-public class ApplicatonConfig {
-
+public class ApplicatonConfig {    
+    /**
+     * Class logger.
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicatonConfig.class);
-    
-    
-   private static final String CATALINA_BASE = "catalina.base";
 
     /**
      * Configuration object for communicating with property data.
@@ -34,7 +32,7 @@ public class ApplicatonConfig {
     @Bean(name = "configuration")
     public PropertiesConfiguration configuration() throws ConfigurationException {
         LOGGER.info("Creating property.");
-        PropertiesConfiguration configuration = new PropertiesConfiguration(System.getProperty(CATALINA_BASE) + "/appconf/archerystats.properties");
+        PropertiesConfiguration configuration = new PropertiesConfiguration(System.getProperty("catalina.base") + "/appconf/archerystats.properties");
         ReloadingStrategy reloadingStrategy = new FileChangedReloadingStrategy();
         configuration.setReloadingStrategy(reloadingStrategy);
         LOGGER.info("Finished creating property.");

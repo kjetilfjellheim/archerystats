@@ -1,9 +1,5 @@
 import { ActivatedRouteSnapshot, RouteReuseStrategy, DetachedRouteHandle } from '@angular/router';
 
-/** Interface for object which can store both:
- * An ActivatedRouteSnapshot, which is useful for determining whether or not you should attach a route (see this.shouldAttach)
- * A DetachedRouteHandle, which is offered up by this.retrieve, in the case that you do want to attach the stored route
- */
 interface RouteStorageObject {
     snapshot: ActivatedRouteSnapshot;
     handle: DetachedRouteHandle;
@@ -11,36 +7,14 @@ interface RouteStorageObject {
 
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
-    /**
-     * Object which will store RouteStorageObjects indexed by keys
-     * The keys will all be a path (as in route.routeConfig.path)
-     * This allows us to see if we've got a route stored for the requested path
-     */
     storedRoutes: { [key: string]: RouteStorageObject } = {};
 
-    /**
-     * Decides if the route should be stored
-
-     * @param route This is, at least as I understand it, the route that the user is currently on, and we would like to know if we want to store it
-     * @returns boolean indicating that we want to (true) or do not want to (false) store that route
-     */
     shouldDetach(route: ActivatedRouteSnapshot): boolean {
         let detach: boolean = true;
-        // add a check for paths that shouldn't be stored here, for example
-        /**
-            if(route.routeConfig.path == 'path/in/your/route/config'){
-                return false;
-            }
-        */
         console.log("detaching", route, "return: ", detach);
         return detach;
     }
 
-    /**
-     * Constructs object of type `RouteStorageObject` to store, and then stores it for later attachment
-     * @param route This is stored for later comparison to requested routes, see `this.shouldAttach`
-     * @param handle Later to be retrieved by this.retrieve, and offered up to whatever controller is using this class
-     */
     store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
         let storedRoute: RouteStorageObject = {
             snapshot: route,
@@ -48,7 +22,6 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
         };
 
         console.log("store:", storedRoute, "into: ", this.storedRoutes);
-        // routes are stored by path - the key is the path name, and the handle is stored under it so that you can only ever have one object stored for a single path
 
         if (route.data['cachable']) {
           this.storedRoutes[route.routeConfig.path] = storedRoute;

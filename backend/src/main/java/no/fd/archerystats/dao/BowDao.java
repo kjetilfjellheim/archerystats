@@ -10,6 +10,8 @@ import no.fd.archerystats.service.pojo.Bow;
  */
 public interface BowDao {
 
-    public List<Bow> findByUser(String idUser);
+    List<Bow> findByUser(String idUser);
+    
+    Bow findByUserAndBowname(String idUser, String bowname);
     
 }
