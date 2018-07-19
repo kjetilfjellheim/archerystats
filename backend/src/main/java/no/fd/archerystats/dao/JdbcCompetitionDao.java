@@ -37,7 +37,7 @@ public class JdbcCompetitionDao implements CompetitionDao {
 
     public List<Competition> findResults(String idParam, String idUser, Date fromDate, Date toDate, boolean training) {
         LOGGER.info("Find results {} {}", idParam, idUser);
-        return this.jdbcTemplate.query("select * from archerystats_v1.competition where id_user = ? and id_param = ? and date >= ? and date <= ? and training = ?", new Object[] { idUser, idParam, fromDate, toDate, training }, competitionRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.competition where id_user = ? and id_param = ? and date >= ? and date <= ? and training = ? order by date", new Object[] { idUser, idParam, fromDate, toDate, training }, competitionRowMapper);
 
     }
     

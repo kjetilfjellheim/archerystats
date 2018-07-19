@@ -36,7 +36,7 @@ public class JdbcCompetitionParamBowDao implements CompetitionParamDao {
     
     public List<CompetitionParam> findAll() {
         LOGGER.info("Find all");
-        return this.jdbcTemplate.query("select * from archerystats_v1.competition_param", new Object[] { }, competitionParamRowMapper);        
+        return this.jdbcTemplate.query("select * from archerystats_v1.competition_param order by \"order\"", new Object[] { }, competitionParamRowMapper);        
     }
     
 }

@@ -21,7 +21,7 @@ export class CompetitionDataComponent implements OnInit {
 
   options: any;
   lineData: any;
-  dateRange: Date[] = [];
+  dateRange: Date[] = [new Date("2017-01-01"), new Date()];
   user: User = new User();
   competitionParam: CompetitionParam = new CompetitionParam();
   /**
@@ -78,7 +78,7 @@ export class CompetitionDataComponent implements OnInit {
     this.dateRange[1] = this.dateRangeChoice[1];
     this.user = this.userChoice;
     this.competitionParam = this.competitionParamChoice;
-    this.getParameters();
+    this.getCompetionResults();
   }
 
 getParameters(): void {
@@ -93,5 +93,34 @@ getParameters(): void {
        this.messages.push({severity:'error', summary:'Error getting parameters.', detail:error});
      });
    }
+
+   getCompetionResults(): void {
+     this.competitionDataService
+      .getCompetition(this.dateRange, this.competitionParam.id, this.user.id)
+      .subscribe(values =>
+        {
+          let data = [];
+          for (var i = 0; i < values.length; i++) {
+             data.push({
+               t: new Date(values[i].date),
+               y: values[i].value
+             });
+           }
+           this.lineData = {
+                datasets: [
+                    {
+                      data: data,
+                      label: 'Scores',
+                      borderColor: '#ff8888',
+                      backgroundColor: 'rgba(0, 0, 0, 0)'
+                    }
+                ]
+            }
+        },
+        (error) =>
+        {
+          this.messages.push({severity:'error', summary:'Error getting competitionResults.', detail:error});
+        });
+      }
 
 }

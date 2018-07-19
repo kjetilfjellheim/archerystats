@@ -12,13 +12,13 @@ export class CompetitionDataService {
     constructor (private http: Http) {}
 
     getCompetition(dateRange: Date[], param: string, user: string) : Observable<Competition[]> {
-        return this.http.get("/request/competitions/results/competition?idUser=" + user + "&idParam=" + param + "&fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10))
+        return this.http.get("/archerystats/request/competitions/results/competition?idUser=" + user + "&idParam=" + param + "&fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10))
                     .map(this.extractCompetition)
                     .catch(this.handleError);
     }
 
     getTraining(dateRange: Date[], param: string, user: string) : Observable<Competition[]> {
-        return this.http.get("/request/competitions/results/training?idUser=" + user + "&idParam=" + param + "&fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10))
+        return this.http.get("/archerystats/request/competitions/results/training?idUser=" + user + "&idParam=" + param + "&fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10))
                     .map(this.extractCompetition)
                     .catch(this.handleError);
     }

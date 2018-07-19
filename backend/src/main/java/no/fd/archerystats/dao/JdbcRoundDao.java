@@ -34,17 +34,17 @@ public class JdbcRoundDao implements RoundDao {
 
     public List<Round> findRounds(String userId, String bowId, Date fromDate, Date toDate, Integer distance) {
         LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and shoot_date >= ? and shoot_date <= ? and distance = ?", new Object[]{userId, bowId, fromDate, toDate, distance}, roundRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and shoot_date >= ? and shoot_date <= ? and distance = ? order by shoot_date", new Object[]{userId, bowId, fromDate, toDate, distance}, roundRowMapper);
     }
     
     public List<Round> findRounds(String userId, Date fromDate, Date toDate, Integer distance) {
         LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and shoot_date >= ? and shoot_date <= ? and distance = ?", new Object[]{userId, fromDate, toDate, distance}, roundRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and shoot_date >= ? and shoot_date <= ? and distance = ? order by shoot_date", new Object[]{userId, fromDate, toDate, distance}, roundRowMapper);
     }
 
     public List<Round> findRounds(String userId, String bowId, Integer distance) {
         LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and distance = ?", new Object[]{userId, bowId, distance}, roundRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and distance = ? order by shoot_date", new Object[]{userId, bowId, distance}, roundRowMapper);
     }
 
     public String insert(String idUser, String idBow, Date shootDate, Integer round, Boolean missScored, Boolean perfectScored, Boolean badshotScored, Integer miss, Integer perfect, Integer badShots, Integer distance, Integer horizontalLeft, Integer horizontalCenter, Integer horizontalRight, Integer verticalHigh, Integer verticalCenter, Integer verticalLow) {

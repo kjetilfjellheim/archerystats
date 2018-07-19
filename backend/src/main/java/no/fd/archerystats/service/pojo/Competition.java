@@ -12,7 +12,7 @@ public class Competition {
     private String id;
     private String idParam;
     private String idUser;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")            
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")            
     private Date date;
     private Double value;
     private Boolean training;

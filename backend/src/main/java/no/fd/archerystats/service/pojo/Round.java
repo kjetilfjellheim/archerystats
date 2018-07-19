@@ -12,7 +12,7 @@ public class Round {
     private String id;
     private String idUser;
     private String idBow;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")        
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")        
     private Date shootDate;
     private Integer round;
     private Boolean missScored;
