@@ -1,20 +1,21 @@
 
 package no.fd.archerystats.service.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
  *
  * @author Kjetil
  */
-public class Bow {
+public class Competition {
     private String id;
-    private Date date;
     private String idParam;
     private String idUser;
-    private String name;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")            
+    private Date date;
     private Double value;
-    private boolean training;
+    private Boolean training;
 
     public String getId() {
         return id;
@@ -22,14 +23,6 @@ public class Bow {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getIdParam() {
@@ -48,14 +41,6 @@ public class Bow {
         this.idUser = idUser;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Double getValue() {
         return value;
     }
@@ -64,12 +49,21 @@ public class Bow {
         this.value = value;
     }
 
-    public boolean isTraining() {
+    public Boolean getTraining() {
         return training;
     }
 
-    public void setTraining(boolean training) {
+    public void setTraining(Boolean training) {
         this.training = training;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    
     
 }

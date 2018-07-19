@@ -13,25 +13,27 @@ import { CustomRequestOptions }   from './common/cache-remover';
 import { BreadcrumbComponent }    from "./breadcrumb/breadcrumb.component";
 import { HomeComponent }          from "./home/home.component";
 import { StatisticsComponent }    from "./statistics/statistics.component";
-import { StatisticsService }      from "./statistics/statistics.service";
-import { UserService }            from "./statistics/user.service";
-
-
-import { ChartModule, ListboxModule } from 'primeng/primeng';
-
-// Providers
+import { DiaryinfoComponent }     from "./diaryinfo/diaryinfo.component";
+import { CompetitionComponent }     from "./competition/competition.component";
 
 import { APP_ROUTES }             from './app.routes';
 
-import { DataTableModule, SharedModule, MultiSelectModule, DialogModule, GrowlModule, CheckboxModule, DropdownModule, TooltipModule, ButtonModule, TriStateCheckboxModule, TabViewModule, CalendarModule }    from 'primeng/primeng';
+import { ChartModule, ListboxModule, DataTableModule, SharedModule, MultiSelectModule, DialogModule, GrowlModule, CheckboxModule, DropdownModule, TooltipModule, ButtonModule, TriStateCheckboxModule, TabViewModule, CalendarModule }    from 'primeng/primeng';
 
 import { CustomReuseStrategy } from './strategies/CustomReuseStrategy';
 
+import { TotalStatsModule } from './totalstats/totalstats.module';
+import { OvertimeStatsModule } from './overtimestats/overtimestats.module';
+import { DiaryModule } from './diary/diary.module';
+import { DiaryLogModule } from './diarylog/diarylog.module';
+import { CompetitionDataModule } from './competitiondata/competitiondata.module';
+
+
 @NgModule({
-  imports:      [ BrowserModule, ListboxModule, BrowserAnimationsModule, ChartModule, FormsModule, ReactiveFormsModule, HttpModule, DataTableModule, DialogModule, GrowlModule, CalendarModule, CheckboxModule, DropdownModule, TriStateCheckboxModule, MultiSelectModule, SharedModule, TooltipModule, ButtonModule, TabViewModule, RouterModule.forRoot(APP_ROUTES) ],
+  imports:      [ BrowserModule, CompetitionDataModule, DiaryLogModule, DiaryModule, OvertimeStatsModule, TotalStatsModule, ListboxModule, BrowserAnimationsModule, ChartModule, FormsModule, ReactiveFormsModule, HttpModule, DataTableModule, DialogModule, GrowlModule, CalendarModule, CheckboxModule, DropdownModule, TriStateCheckboxModule, MultiSelectModule, SharedModule, TooltipModule, ButtonModule, TabViewModule, RouterModule.forRoot(APP_ROUTES) ],
   exports:      [ RouterModule],
-  declarations: [ HomeComponent, BreadcrumbComponent, StatisticsComponent ],
+  declarations: [ HomeComponent, BreadcrumbComponent, CompetitionComponent, StatisticsComponent, DiaryinfoComponent ],
   bootstrap:    [ HomeComponent ],
-  providers:    [ { provide: RequestOptions, useClass: CustomRequestOptions }, StatisticsService, UserService,  { provide: RouteReuseStrategy, useClass: CustomReuseStrategy } ]
+  providers:    [ { provide: RequestOptions, useClass: CustomRequestOptions },  { provide: RouteReuseStrategy, useClass: CustomReuseStrategy } ]
 })
 export class AppModule { }

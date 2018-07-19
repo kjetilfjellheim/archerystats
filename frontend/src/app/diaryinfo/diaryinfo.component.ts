@@ -2,9 +2,9 @@ import { Component, OnInit, Input }    from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
-    templateUrl: './statistics.html'
+    templateUrl: './diaryinfo.html'
 })
-export class StatisticsComponent implements OnInit {
+export class DiaryinfoComponent implements OnInit {
 
   constructor() { }
 

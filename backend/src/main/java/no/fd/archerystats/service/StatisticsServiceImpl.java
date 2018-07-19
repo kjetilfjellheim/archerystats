@@ -1,11 +1,15 @@
 package no.fd.archerystats.service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import no.fd.archerystats.dao.DiaryDao;
 import no.fd.archerystats.dao.RoundDao;
+import no.fd.archerystats.service.pojo.Diary;
 import no.fd.archerystats.service.pojo.Round;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +44,9 @@ public class StatisticsServiceImpl extends AbstractService implements Statistics
 
     @Autowired
     private RoundDao roundDao;
+    
+    @Autowired
+    private DiaryDao diaryDao;    
 
     @Transactional
     public Map<String, Integer> getTotals(String userId, String bowId, Date fromDate, Date toDate, Integer distance) {
@@ -77,10 +84,15 @@ public class StatisticsServiceImpl extends AbstractService implements Statistics
     }
 
     @Transactional
-    public Map<Date, Map<String, Integer>> getByDate(String userId, String bowId, Integer distance) {
+    public Map<Date, Map<String, Integer>> getByDate(String userId, String bowId, Date fromDate, Date toDate, Integer distance) {
         LOGGER.info("Getting totals by date");
         Map<Date, Map<String, Integer>> result = new TreeMap<Date, Map<String, Integer>>();
-        List<Round> rounds = roundDao.findRounds(userId, bowId, distance);
+        List<Round> rounds = null;
+        if (bowId != null) {
+            rounds = roundDao.findRounds(userId, bowId, fromDate, toDate, distance);
+        } else {
+            rounds = roundDao.findRounds(userId, fromDate, toDate, distance);
+        }        
         LOGGER.info("Got rounds from db: Number of rows {}", rounds.size());                
         for (Round round : rounds) {
             if (!result.containsKey(round.getShootDate())) {
@@ -115,6 +127,32 @@ public class StatisticsServiceImpl extends AbstractService implements Statistics
         }
         LOGGER.info("Finished getting totals by date");
         return result;
+    }
+    
+    public Map<Date, Integer> getTrainingMinutes(String userId, Date fromDate, Date toDate, Integer spt) {
+        Map<Date, Integer> result = new TreeMap();
+        List<Diary> diaries = null;
+        if (spt != null) {
+            diaries = diaryDao.findDiary(userId, fromDate, toDate, spt);
+        } else {
+            diaries = diaryDao.findDiary(userId, fromDate, toDate);
+        }     
+        for (Diary diary : diaries) {
+            Date date = getWeekStart(diary.getDate().getTime());
+            if (result.containsKey(date)) {
+                result.put(date, result.get(date) + diary.getMinutes());
+            } else {
+                result.put(date, diary.getMinutes());
+            }
+        }
+        return result;
+    }
+
+    private Date getWeekStart(long time) {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTimeInMillis(time);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        return cal.getTime();
     }
 
 }

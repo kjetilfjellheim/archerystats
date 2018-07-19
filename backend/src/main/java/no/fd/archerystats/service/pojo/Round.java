@@ -1,7 +1,7 @@
 
 package no.fd.archerystats.service.pojo;
 
-import java.util.Calendar;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
@@ -12,6 +12,7 @@ public class Round {
     private String id;
     private String idUser;
     private String idBow;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")        
     private Date shootDate;
     private Integer round;
     private Boolean missScored;

@@ -4,10 +4,10 @@ import { Observable }               from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Total }     from './statistics';
+import { Total }     from './totalstats';
 
 @Injectable()
-export class StatisticsService {
+export class TotalStatsService {
 
     constructor (private http: Http) {}
 
