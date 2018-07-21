@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <hr>
+    </div>
+    <div class="col-md-12">
+      <p-dataTable [value]="diaries" sortField="date" sortOrder="-1" [rows]="10" [paginator]="true" [pageLinks]="8" [rowsPerPageOptions]="[5,10,20]">
+          <p-column field="date" header="Date" [sortable]="true" [filter]="true">
+            <ng-template let-row="rowData" pTemplate="body">
+              <p>{{ row.date | date:'mediumDate' }}</p>
+            </ng-template>
+          </p-column>
+          <p-column field="comment" header="Comment" [sortable]="true" [filter]="true">
+            <ng-template let-row="rowData" pTemplate="body">
+              {{ row.comment }}
+            </ng-template>
+          </p-column>
+          <p-column field="minutes" header="Minutes" [sortable]="true" [filter]="true"></p-column>
+          <p-column field="spt" header="SPT" [sortable]="true">
+          </p-column>
+      </p-dataTable>
+    </div>
+  </div>
+</div>

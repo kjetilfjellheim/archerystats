@@ -21,7 +21,10 @@ public class CompetitionRowMapper implements RowMapper<Competition> {
         competition.setIdUser(rs.getString("id_user"));
         competition.setTraining(rs.getBoolean("training"));
         competition.setDate(rs.getDate("date"));
-        competition.setValue(rs.getDouble("value"));
+        double val = rs.getDouble("value");
+        if (!rs.wasNull()) {
+            competition.setValue(val);
+        }
         return competition;
     }
     

@@ -23,15 +23,42 @@ public class RoundRowMapper implements RowMapper<Round>{
         round.setMissScored(rs.getBoolean("miss_scored"));
         round.setPerfectScored(rs.getBoolean("perfect_scored"));
         round.setBadshotScored(rs.getBoolean("badshot_scored"));
-        round.setMiss(rs.getInt("miss"));
-        round.setPerfect(rs.getInt("perfect"));
-        round.setBadShots(rs.getInt("badshot"));
-        round.setHorizontalLeft(rs.getInt("horizontal_left"));
-        round.setHorizontalCenter(rs.getInt("horizontal_center"));
-        round.setHorizontalRight(rs.getInt("horizontal_right"));
-        round.setVerticalHigh(rs.getInt("vertical_high"));
-        round.setVerticalCenter(rs.getInt("vertical_center"));
-        round.setVerticalLow(rs.getInt("vertical_low"));        
+        int miss = rs.getInt("miss");
+        if (!rs.wasNull()) {
+            round.setMiss(miss);
+        }
+        int perfect = rs.getInt("perfect");
+        if (!rs.wasNull()) {
+            round.setPerfect(perfect);
+        }
+        int badshots = rs.getInt("badshot");
+        if (!rs.wasNull()) {
+            round.setBadShots(badshots);
+        }
+        int horLeft = rs.getInt("horizontal_left");
+        if (!rs.wasNull()) {
+            round.setHorizontalLeft(horLeft);
+        }
+        int horCenter = rs.getInt("horizontal_center");
+        if (!rs.wasNull()) {
+            round.setHorizontalCenter(horCenter);
+        }
+        int horRight = rs.getInt("horizontal_right");
+        if (!rs.wasNull()) {
+            round.setHorizontalRight(horRight);
+        }
+        int verHigh = rs.getInt("vertical_high");
+        if (!rs.wasNull()) {
+            round.setVerticalHigh(verHigh);
+        }
+        int verCenter = rs.getInt("vertical_center");
+        if (!rs.wasNull()) {
+            round.setVerticalCenter(verCenter);
+        }
+        int verLow = rs.getInt("vertical_low");
+        if (!rs.wasNull()) {
+            round.setVerticalLow(verLow);        
+        }
         return round;
     }
     

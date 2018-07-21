@@ -38,12 +38,12 @@ public class ImportData {
             round.setPerfect(split[7].equalsIgnoreCase("N") ? null : Integer.valueOf(split[7]));
             round.setBadShots(split[8].equalsIgnoreCase("N") ? null : Integer.valueOf(split[8]));
             round.setDistance(Integer.valueOf(split[2].replaceAll("m", "")));
-            round.setHorizontalLeft(StringUtils.countMatches(split[4], "V"));
-            round.setHorizontalCenter(StringUtils.countMatches(split[4], "X"));
-            round.setHorizontalRight(StringUtils.countMatches(split[4], "H"));
-            round.setVerticalHigh(StringUtils.countMatches(split[5], "O"));
-            round.setVerticalCenter(StringUtils.countMatches(split[5], "X"));
-            round.setVerticalLow(StringUtils.countMatches(split[5], "U"));
+            round.setHorizontalLeft(split[4] != null && !split[4].equals("") ? StringUtils.countMatches(split[4], "V") : null);
+            round.setHorizontalCenter(split[4] != null && !split[4].equals("") ? StringUtils.countMatches(split[4], "X") : null);
+            round.setHorizontalRight(split[4] != null && !split[4].equals("") ? StringUtils.countMatches(split[4], "H") : null);
+            round.setVerticalHigh(split[5] != null && !split[5].equals("") ? StringUtils.countMatches(split[5], "O") : null);
+            round.setVerticalCenter(split[5] != null && !split[5].equals("") ? StringUtils.countMatches(split[5], "X") : null);
+            round.setVerticalLow(split[5] != null && !split[5].equals("") ? StringUtils.countMatches(split[5], "U") : null);
             rounds.add(round);
         }
         sendRequest(rounds);

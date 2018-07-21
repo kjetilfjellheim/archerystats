@@ -4,7 +4,6 @@ package no.fd.archerystats.service.rowmapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import no.fd.archerystats.service.pojo.Diary;
-import no.fd.archerystats.service.pojo.Round;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +20,14 @@ public class DiaryRowMapper implements RowMapper<Diary>{
         diary.setIdUser(rs.getString("id_user"));
         diary.setDate(rs.getDate("date"));
         diary.setComment(rs.getString("comment"));
-        diary.setSpt(rs.getInt("spt"));        
-        diary.setMinutes(rs.getInt("minutes"));        
+        int spt = rs.getInt("spt");
+        if (!rs.wasNull()) {
+            diary.setSpt(spt);        
+        }
+        int minutes = rs.getInt("minutes");
+        if (!rs.wasNull()) {
+            diary.setMinutes(minutes);        
+        }
         return diary;
     }
     
