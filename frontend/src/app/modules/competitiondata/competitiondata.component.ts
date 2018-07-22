@@ -34,16 +34,19 @@ export class CompetitionDataComponent implements OnInit {
             xAxes: [{
                 type: 'time',
                 time: {
-                    unit: 'day',
+                    unit: 'month',
                     displayFormats: {
-                        quarter: 'MMM D'
-                    }
+                        quarter: 'MMM, YY'
+                    },
+                    min: new Date(2017, 0 , 1),
+                    max: new Date(),
+                    minUnit: 'day'
                 },
                 distribution: 'series'
             }],
             yAxes: [{
                 ticks: {
-                    suggestedMin: 0
+                    min: 0
                 }
             }]
         }
@@ -73,6 +76,31 @@ export class CompetitionDataComponent implements OnInit {
                     }
                 ]
             }
+            this.options = {
+              responsive: false,
+              maintainAspectRatio: true,
+              scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            unit: 'month',
+                            displayFormats: {
+                                quarter: 'MMM, YY'
+                            },
+                            min: data[0].t,
+                            max: data[data.length - 1].t,
+                            minUnit: 'month',
+                            stepSize: 1
+                        },
+                        distribution: 'linear'
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0
+                        }
+                    }]
+                }
+            };
         },
         (error) =>
         {

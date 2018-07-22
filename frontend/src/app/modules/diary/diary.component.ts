@@ -34,17 +34,19 @@ export class DiaryComponent implements OnInit {
             xAxes: [{
                 type: 'time',
                 time: {
-                    unit: 'day',
+                    unit: 'month',
                     displayFormats: {
-                        quarter: 'MMM D'
-                    }
+                        quarter: 'MMM, YY'
+                    },
+                    min: new Date(2017, 0 , 1),
+                    max: new Date(),
+                    minUnit: 'day'
                 },
                 distribution: 'series'
             }],
             yAxes: [{
                 ticks: {
-                    suggestedMin: 0,
-                    suggestedMax: 100,
+                    min: 0
                 }
             }]
         }
@@ -74,6 +76,31 @@ regenerate(): void {
               }
             ]
         }
+        this.options = {
+          responsive: false,
+          maintainAspectRatio: true,
+          scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        unit: 'month',
+                        displayFormats: {
+                            quarter: 'MMM, YY'
+                        },
+                        min: trainingMinutes[0].t,
+                        max: trainingMinutes[trainingMinutes.length - 1].t,
+                        minUnit: 'month',
+                        stepSize: 1
+                    },
+                    distribution: 'linear'
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0
+                    }
+                }]
+            }
+        };
      },
      (error) =>
      {
