@@ -34,12 +34,12 @@ public class JdbcRoundDao implements RoundDao {
 
     public List<Round> findRounds(String userId, String bowId, Date fromDate, Date toDate, Integer distance) {
         LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and shoot_date >= ? and shoot_date <= ? and distance = ? order by shoot_date", new Object[]{userId, bowId, fromDate, toDate, distance}, roundRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and shoot_date >= ? and (shoot_date - interval '1 day') <= ? and distance = ? order by shoot_date", new Object[]{userId, bowId, fromDate, toDate, distance}, roundRowMapper);
     }
     
     public List<Round> findRounds(String userId, Date fromDate, Date toDate, Integer distance) {
         LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and shoot_date >= ? and shoot_date <= ? and distance = ? order by shoot_date", new Object[]{userId, fromDate, toDate, distance}, roundRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and shoot_date >= ? and (shoot_date - interval '1 day') <= ? and distance = ? order by shoot_date", new Object[]{userId, fromDate, toDate, distance}, roundRowMapper);
     }
 
     public List<Round> findRounds(String userId, String bowId, Integer distance) {

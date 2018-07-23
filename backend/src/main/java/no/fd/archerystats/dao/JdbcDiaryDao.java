@@ -36,12 +36,12 @@ public class JdbcDiaryDao implements DiaryDao {
    
     public List<Diary> findDiary(String userId, Date fromDate, Date toDate) {
         LOGGER.info("Find diary");
-        return this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and date <= ? order by date", new Object[]{userId, fromDate, toDate}, diaryRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and (date - interval '1 day') <= ? order by date", new Object[]{userId, fromDate, toDate}, diaryRowMapper);
     }
 
     public List<Diary> findDiary(String userId, Date fromDate, Date toDate, Integer spt) {
         LOGGER.info("Find diary");
-        return this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and date <= ? and spt = ? order by date", new Object[]{userId, fromDate, toDate, spt}, diaryRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and (date - interval '1 day') <= ? and spt = ? order by date", new Object[]{userId, fromDate, toDate, spt}, diaryRowMapper);
     }
 
 }

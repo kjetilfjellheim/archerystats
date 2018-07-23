@@ -10,13 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author kjetilf
  */
 @Service
-public class CompetitionServiceImpl extends AbstractService implements CompetitionService {
+public class CompetitionServiceImpl implements CompetitionService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompetitionServiceImpl.class);
     
@@ -26,15 +27,17 @@ public class CompetitionServiceImpl extends AbstractService implements Competiti
     @Autowired
     private CompetitionParamDao competitionParamDao;    
     
-    
+    @Transactional
     public List<Competition> getCompetitionResults(String idUser, String idParam, Date fromDate, Date toDate) {
         return competitionDao.findResults(idParam, idUser, fromDate, toDate, false);
     }
 
+    @Transactional
     public List<CompetitionParam> getCompetitionParams() {
         return competitionParamDao.findAll();
     }
 
+    @Transactional
     public List<Competition> getTrainingResults(String idUser, String idParam, Date fromDate, Date toDate) {
         return competitionDao.findResults(idParam, idUser, fromDate, toDate, true);        
     }

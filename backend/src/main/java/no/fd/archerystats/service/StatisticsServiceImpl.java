@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author kjetilf
  */
 @Service
-public class StatisticsServiceImpl extends AbstractService implements StatisticsService {
+public class StatisticsServiceImpl implements StatisticsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsServiceImpl.class);
 
@@ -137,7 +137,9 @@ public class StatisticsServiceImpl extends AbstractService implements Statistics
         return result;
     }
 
+    @Transactional
     public Map<Date, Integer> getTrainingMinutes(String userId, Date fromDate, Date toDate, Integer spt) {
+        LOGGER.info("Get training minutes {} {} {} {}", userId, fromDate, toDate, spt);
         Map<Date, Integer> result = new TreeMap();
         List<Diary> diaries = null;
         if (spt != null) {
@@ -159,6 +161,7 @@ public class StatisticsServiceImpl extends AbstractService implements Statistics
     private Date getWeekStart(long time) {
         Calendar cal = GregorianCalendar.getInstance();
         cal.setTimeInMillis(time);
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         return cal.getTime();
     }

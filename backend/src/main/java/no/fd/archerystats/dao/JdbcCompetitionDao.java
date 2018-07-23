@@ -4,9 +4,7 @@ package no.fd.archerystats.dao;
 import java.util.Date;
 import java.util.List;
 import javax.sql.DataSource;
-import no.fd.archerystats.service.pojo.Bow;
 import no.fd.archerystats.service.pojo.Competition;
-import no.fd.archerystats.service.rowmapper.BowRowMapper;
 import no.fd.archerystats.service.rowmapper.CompetitionRowMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +35,7 @@ public class JdbcCompetitionDao implements CompetitionDao {
 
     public List<Competition> findResults(String idParam, String idUser, Date fromDate, Date toDate, boolean training) {
         LOGGER.info("Find results {} {}", idParam, idUser);
-        return this.jdbcTemplate.query("select * from archerystats_v1.competition where id_user = ? and id_param = ? and date >= ? and date <= ? and training = ? order by date", new Object[] { idUser, idParam, fromDate, toDate, training }, competitionRowMapper);
+        return this.jdbcTemplate.query("select * from archerystats_v1.competition where id_user = ? and id_param = ? and date >= ? and (date - interval '1 day') <= ? and training = ? order by date", new Object[] { idUser, idParam, fromDate, toDate, training }, competitionRowMapper);
 
     }
     

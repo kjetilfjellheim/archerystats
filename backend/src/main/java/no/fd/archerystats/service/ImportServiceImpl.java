@@ -26,9 +26,6 @@ public class ImportServiceImpl implements ImportService {
     public void importData(List<Round> rounds) {
         LOGGER.info("Importing data");
         for (Round round : rounds) {
-            roundDao.delete(round.getIdUser(), round.getIdBow(), round.getShootDate());
-        }
-        for (Round round : rounds) {
             roundDao.insert(round.getIdUser(), round.getIdBow(), round.getShootDate(), round.getRound(), round.getMissScored(), round.getPerfectScored(), round.getBadshotScored(), round.getMiss(), round.getPerfect(), round.getBadShots(), round.getDistance(), round.getHorizontalLeft(), round.getHorizontalCenter(), round.getHorizontalRight(), round.getVerticalHigh(), round.getVerticalCenter(), round.getVerticalLow());
         }
     }
