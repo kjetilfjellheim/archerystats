@@ -11,11 +11,18 @@ export class DiaryService {
 
     constructor (private http: Http) {}
 
-    getDiaries(dateRange: Date[], user: string) : Observable<TrainingMinutes[]> {
-        return this.http.get("/archerystats/request/statistics/trainingminutes?user=" + user + "&fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10))
+    getTotalTraining(dateRange: Date[]) : Observable<TrainingMinutes[]> {
+        return this.http.get("/archerystats/request/statistics/trainingminutes?fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10))
                     .map(this.extractResult)
                     .catch(this.handleError);
     }
+
+    getTrainingSpt(dateRange: Date[], spt: number) : Observable<TrainingMinutes[]> {
+        return this.http.get("/archerystats/request/statistics/trainingminutes?fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10) + "&spt=" + spt)
+                    .map(this.extractResult)
+                    .catch(this.handleError);
+    }
+
 
     private extractResult(response : Response) : TrainingMinutes[] {
         let vals : TrainingMinutes[] = [];

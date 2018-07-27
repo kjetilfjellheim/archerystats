@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexHtmlForwardController {
 
-    @RequestMapping({"", "/totals", "/training", "/diarylog", "/competitions", "/overtimestatats"})
+    @RequestMapping({"", "/totals", "/training", "/diarylog", "/competitions", "/overtimestatats", "/main", "/profile"})
     public String index() {
         return "forward:/index.html";
     }

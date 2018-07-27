@@ -18,6 +18,7 @@ public class UserRowMapper implements RowMapper<User>{
         User user = new User();
         user.setId(rs.getString("id"));
         user.setName(rs.getString("name"));
+        user.setFacebookid(rs.getString("facebookid"));
         return user;
     }
     

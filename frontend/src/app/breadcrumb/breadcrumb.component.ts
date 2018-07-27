@@ -29,7 +29,7 @@ export class BreadcrumbComponent implements OnInit {
 
     private getBreadCrumbs(event : NavigationEnd) : Breadcrumb[] {
         let breadcrumbs = event.urlAfterRedirects.split("/");
-        let newBreadcrumbs : Breadcrumb[] = [ this.getBreadCrumb("/", "Hjem") ];
+        let newBreadcrumbs : Breadcrumb[] = [ this.getBreadCrumb("/", "Home") ];
         let url : string = "";
         for(var breadcrumbStr of breadcrumbs) {
             if (breadcrumbStr !== '') {

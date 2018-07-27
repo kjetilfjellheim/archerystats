@@ -15,5 +15,11 @@ public interface UserDao {
     User findById(String userId);
     
     User findByName(String name);
+
+    User findByFacebookId(String id);
+
+    void update(String id, String name, String facebookid);
+
+    String create(String name, String facebookid);
     
 }

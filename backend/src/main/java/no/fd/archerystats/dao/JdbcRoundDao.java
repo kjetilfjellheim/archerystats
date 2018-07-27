@@ -32,21 +32,6 @@ public class JdbcRoundDao implements RoundDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Round> findRounds(String userId, String bowId, Date fromDate, Date toDate, Integer distance) {
-        LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and shoot_date >= ? and (shoot_date - interval '1 day') <= ? and distance = ? order by shoot_date", new Object[]{userId, bowId, fromDate, toDate, distance}, roundRowMapper);
-    }
-    
-    public List<Round> findRounds(String userId, Date fromDate, Date toDate, Integer distance) {
-        LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and shoot_date >= ? and (shoot_date - interval '1 day') <= ? and distance = ? order by shoot_date", new Object[]{userId, fromDate, toDate, distance}, roundRowMapper);
-    }
-
-    public List<Round> findRounds(String userId, String bowId, Integer distance) {
-        LOGGER.info("Find rounds");
-        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and id_bow = ? and distance = ? order by shoot_date", new Object[]{userId, bowId, distance}, roundRowMapper);
-    }
-
     public String insert(String idUser, String idBow, Date shootDate, Integer round, Boolean missScored, Boolean perfectScored, Boolean badshotScored, Integer miss, Integer perfect, Integer badShots, Integer distance, Integer horizontalLeft, Integer horizontalCenter, Integer horizontalRight, Integer verticalHigh, Integer verticalCenter, Integer verticalLow) {
         String id = java.util.UUID.randomUUID().toString();
         this.jdbcTemplate.update("INSERT INTO archerystats_v1.round(id, id_user, id_bow, shoot_date, round, miss_scored, perfect_scored, badshot_scored, miss, perfect, badshot, horizontal_left, horizontal_center, horizontal_right, vertical_high, vertical_center, vertical_low, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", new Object[]{id, idUser, idBow, shootDate, round, missScored, perfectScored, badshotScored, miss, perfect, badShots, horizontalLeft, horizontalCenter, horizontalRight, verticalHigh, verticalCenter, verticalLow, distance});
@@ -55,6 +40,11 @@ public class JdbcRoundDao implements RoundDao {
 
     public void delete(String idUser, String idBow, Date shootDate) {
         this.jdbcTemplate.update("delete from archerystats_v1.round where id_user = ? and id_bow = ? and shoot_date = ?", new Object[] {idUser, idBow, shootDate});
+    }
+
+    public List<Round> findRounds(String userid, Date fromDate, Date toDate, Integer mindistance, Integer maxdistance) {
+        LOGGER.info("Find rounds");
+        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and shoot_date >= ? and (shoot_date - interval '1 day') <= ? and distance >= ? and distance <= ? order by shoot_date", new Object[]{userid, fromDate, toDate, mindistance, maxdistance}, roundRowMapper);
     }
 
 }

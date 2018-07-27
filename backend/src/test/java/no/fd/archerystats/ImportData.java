@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import no.fd.archerystats.service.pojo.Round;
@@ -62,9 +64,11 @@ public class ImportData {
     }
 
     private static void sendRequest(List<Round> rounds) throws MalformedURLException, IOException {
-        URL url = new URL("http://localhost:8080/archerystats/request/rounds/import");
+        URL url = new URL("http://myarcherystats.com/archerystats/request/rounds/import");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
+        String encoded = Base64.getEncoder().encodeToString(("admin"+":"+"Age5jbM3dHcr").getBytes(StandardCharsets.UTF_8));  //Java 8
+        con.setRequestProperty("Authorization", "Basic "+encoded);
         con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create();
         String object = gson.toJson(rounds);

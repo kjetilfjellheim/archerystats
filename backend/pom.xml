@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <logback.version>1.1.0</logback.version>
         <slf4j.version>1.7.5</slf4j.version>
-        <spring.version>5.0.7.RELEASE</spring.version>
+        <spring.version>5.0.6.RELEASE</spring.version>
         <tomcat.version>9.0.10</tomcat.version>
         <commons.version>3.3.2</commons.version>
         <commons.configuration.version>1.10</commons.configuration.version>
@@ -101,6 +101,21 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.version}</version>
+        </dependency>         
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.1</version>
+        </dependency>         
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>

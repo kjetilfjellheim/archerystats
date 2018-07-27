@@ -1,8 +1,11 @@
-export class Total {
+export class VerticalTotal {
   percentHigh: number;
-  percentVerticalCenter: number;
+  percentCenter: number;
   percentLow: number;
+}
+
+export class HorizontalTotal {
   percentLeft: number;
-  percentHorizontalCenter: number;
+  percentCenter: number;
   percentRight: number;
 }

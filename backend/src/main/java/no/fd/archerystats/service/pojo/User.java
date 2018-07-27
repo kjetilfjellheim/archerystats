@@ -1,9 +1,6 @@
 
 package no.fd.archerystats.service.pojo;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author Kjetil
@@ -11,7 +8,16 @@ import java.util.Map;
 public class User {
     private String id;
     private String name;
+    private String facebookid;
 
+    public String getFacebookid() {
+        return facebookid;
+    }
+
+    public void setFacebookid(String facebookid) {
+        this.facebookid = facebookid;
+    }    
+    
     public String getName() {
         return name;
     }
