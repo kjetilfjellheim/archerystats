@@ -11,9 +11,10 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li *ngIf="isloggedin"><span class="label"><p class="small">Is logged in as {{ name }}</p></span></li>
-                <li *ngIf="!isloggedin"><button type="button" class="btn btn-primary" (click)="socialSignIn('facebook')">Login</button></li>
-                <li *ngIf="isloggedin"><button type="button" class="btn btn-primary" (click)="logout()">Logout</button></li>
+                <li *ngIf="isloggedin"><span class="label margin-left"><p class="small">Is logged in as {{ name }}</p></span></li>
+                <li *ngIf="!isloggedin"><button type="button" class="btn btn-primary margin-left" (click)="socialSignIn('facebook')">Login</button></li>
+                <li *ngIf="isloggedin"><button type="button" class="btn btn-primary margin-left" (click)="logout()">Logout</button></li>
+                <li *ngIf="isloggedin"><button type="button" class="btn btn-primary margin-left" (click)="profile()">Profile</button></li>
             </ul>
         </div>
 

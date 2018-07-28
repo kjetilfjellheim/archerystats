@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import no.fd.archerystats.service.DiaryService;
 import no.fd.archerystats.service.pojo.Diary;
+import no.fd.archerystats.service.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +35,10 @@ public class DiaryController {
     
     @ResponseBody
     @RequestMapping(value = "/request/diary/log", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Diary> getDiary(HttpServletResponse httpServletResponse, @RequestParam(value="user") String userId, @RequestParam(value="fromDate", defaultValue = "1970-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate, @RequestParam(value="toDate", defaultValue = "2099-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate, @RequestParam(value="spt", required = false) Integer spt) throws JsonProcessingException {
-        LOGGER.info("Diary log");        
-        return diaryService.getDiary(userId, fromDate, toDate, spt);
+    public List<Diary> getDiary(HttpServletResponse httpServletResponse, HttpSession httpSession, @RequestParam(value="fromDate", defaultValue = "1970-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate, @RequestParam(value="toDate", defaultValue = "2099-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate, @RequestParam(value="spt", required = false) Integer spt) throws JsonProcessingException {
+        LOGGER.info("Diary log");  
+        User user = (User)httpSession.getAttribute(LoginController.LOGIN_SESSION_NAME);                        
+        return diaryService.getDiary(user.getId(), fromDate, toDate, spt);
     }  
     
 }

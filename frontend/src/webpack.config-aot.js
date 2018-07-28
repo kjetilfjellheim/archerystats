@@ -43,7 +43,7 @@ module.exports = {
             },
             {
               test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?(v=)?(\d+)(\.\d+)*)?$/,
-              loader: 'file-loader?name=extra/[name].[ext]'
+              loader: 'file-loader?name=extra/[hash].[ext]'
             }
         ]
     },

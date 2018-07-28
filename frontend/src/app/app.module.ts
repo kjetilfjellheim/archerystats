@@ -19,24 +19,28 @@ import { ChartModule, ListboxModule, DataTableModule, SharedModule, MultiSelectM
 
 import { CustomReuseStrategy } from './strategies/CustomReuseStrategy';
 
-import { TotalStatsModule } from './modules/totalstats/totalstats.module';
-import { OvertimeStatsModule } from './modules/overtimestats/overtimestats.module';
-import { DiaryModule } from './modules/diary/diary.module';
-import { DiaryLogModule } from './modules/diarylog/diarylog.module';
-import { CompetitionDataModule } from './modules/competitiondata/competitiondata.module';
-import { ToolbarModule } from './modules/toolbar/toolbar.module';
-import { ProfileModule } from './modules/profile/profile.module';
-
+import { OvertimeStatsModule } from './modules/data/overtimestats/overtimestats.module';
+import { DiaryModule } from './modules/data/diary/diary.module';
+import { DiaryLogModule } from './modules/data/diarylog/diarylog.module';
+import { CompetitionDataModule } from './modules/data/competitiondata/competitiondata.module';
+import { ToolbarModule } from './modules/data/toolbar/toolbar.module';
 import { SigninService } from './signin/signin.service';
-import { MainComponent }     from "./main/main.component";
 
+import { MainModule }     from "./modules/pages/main/main.module";
+import { ProfileModule } from './modules/pages/profile/profile.module';
+import { TrainingDiaryModule } from './modules/pages/trainingdiary/trainingdiary.module';
+import { TrainingAxisModule } from './modules/pages/trainingaxis/trainingaxis.module';
+import { CompetitionsModule } from './modules/pages/competitions/competitions.module';
+import { EditCompetitionsModule } from './modules/pages/editcompetitions/editcompetitions.module';
+import { EditTrainingLogModule } from './modules/pages/edittraininglog/edittraininglog.module';
+import { EditTrainingShootModule } from './modules/pages/edittrainingshoot/edittrainingshoot.module';
 
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from "angular5-social-login";
 
 @NgModule({
-  imports:      [ BrowserModule, ProfileModule, SocialLoginModule, ToolbarModule, CompetitionDataModule, DiaryLogModule, DiaryModule, OvertimeStatsModule, TotalStatsModule, ListboxModule, BrowserAnimationsModule, ChartModule, FormsModule, ReactiveFormsModule, HttpModule, DataTableModule, DialogModule, GrowlModule, CalendarModule, CheckboxModule, DropdownModule, TriStateCheckboxModule, MultiSelectModule, SharedModule, TooltipModule, ButtonModule, TabViewModule, RouterModule.forRoot(APP_ROUTES) ],
+  imports:      [ BrowserModule, EditTrainingShootModule, EditTrainingLogModule, EditCompetitionsModule, CompetitionsModule, TrainingAxisModule, TrainingDiaryModule, MainModule, ProfileModule, SocialLoginModule, ToolbarModule, CompetitionDataModule, DiaryLogModule, DiaryModule, OvertimeStatsModule, ListboxModule, BrowserAnimationsModule, ChartModule, FormsModule, ReactiveFormsModule, HttpModule, DataTableModule, DialogModule, GrowlModule, CalendarModule, CheckboxModule, DropdownModule, TriStateCheckboxModule, MultiSelectModule, SharedModule, TooltipModule, ButtonModule, TabViewModule, RouterModule.forRoot(APP_ROUTES) ],
   exports:      [ RouterModule],
-  declarations: [ HomeComponent, BreadcrumbComponent, MainComponent ],
+  declarations: [ HomeComponent, BreadcrumbComponent ],
   bootstrap:    [ HomeComponent ],
   providers:    [ SigninService, { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs },{ provide: RequestOptions, useClass: CustomRequestOptions }]
 })

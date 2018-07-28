@@ -50,9 +50,10 @@ public class StatisticsController {
         
     @ResponseBody
     @RequestMapping(value = "/request/statistics/overtime", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Map<Date, Map<String, Integer>> getByDate(HttpServletResponse httpServletResponse, @RequestParam(value="user") String userId, @RequestParam(value="bow", required = false) String bowId, @RequestParam(value="fromDate", defaultValue = "1970-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate, @RequestParam(value="toDate", defaultValue = "2099-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate, @RequestParam("distance") Integer distance) throws JsonProcessingException {
+    public Map<Date, Map<String, Integer>> getByDate(HttpServletResponse httpServletResponse, HttpSession httpSession, @RequestParam(value="fromDate", defaultValue = "1970-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate, @RequestParam(value="toDate", defaultValue = "2099-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate, @RequestParam("mindistance") Integer mindistance, @RequestParam("maxdistance") Integer maxdistance) throws JsonProcessingException {
         LOGGER.info("Statistics bydate");        
-        return statisticsService.getByDate(userId, bowId, fromDate, toDate, distance);
+        User user = (User)httpSession.getAttribute(LoginController.LOGIN_SESSION_NAME);           
+        return statisticsService.getByDate(user.getId(), fromDate, toDate, mindistance, maxdistance);
     }  
     
     @ResponseBody

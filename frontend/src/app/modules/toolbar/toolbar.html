@@ -1,9 +1,0 @@
-<label *ngIf="getShowDateRange()">Date range</label>
-<p-calendar *ngIf="getShowDateRange()" [(ngModel)]="dateRangeChoice" selectionMode="range" readonlyInput="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="2017:2020" dateFormat="M d, yy" inputId="labelDateRange" [inputStyle]="{'width':'200px'}"></p-calendar>
-<label *ngIf="getShowDistance()" for="distance">Distance</label>
-<input *ngIf="getShowDistance()" name="distance" type="number" id="distance" placeholder="Min: 5, max: 100" min="5" max="100" [(ngModel)]="distanceChoice" class="ng-tns-c4-1 ui-dropdown-label ui-inputtext ui-corner-all ng-star-inserted">
-<label *ngIf="getShowUser()" for="user">User</label>
-<p-dropdown *ngIf="getShowUser()" [options]="users" [(ngModel)]="userChoice" filter="true" inputId="user" dataKey="id" optionLabel="name" autoDisplayFirst="false" placeholder="Not selected"></p-dropdown>
-<label *ngIf="getShowCompetitionParam()" for="param">Parameter</label>
-<p-dropdown *ngIf="getShowCompetitionParam()" [options]="parameters" [(ngModel)]="competitionParamChoice" filter="true" inputId="param" dataKey="id" optionLabel="param" autoDisplayFirst="false" placeholder="Not selected"></p-dropdown>
-<button type="button" class="btn btn-primary" (click)="regenerate()">Show</button>

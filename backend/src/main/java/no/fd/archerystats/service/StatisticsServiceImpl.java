@@ -50,51 +50,46 @@ public class StatisticsServiceImpl implements StatisticsService {
     private DiaryDao diaryDao;
 
     @Transactional
-    public Map<Date, Map<String, Integer>> getByDate(String userId, String bowId, Date fromDate, Date toDate, Integer distance) {
+    public Map<Date, Map<String, Integer>> getByDate(String userId, Date fromDate, Date toDate, Integer mindistance, Integer maxdistance) {
         LOGGER.info("Getting totals by date");
         Map<Date, Map<String, Integer>> result = new TreeMap<Date, Map<String, Integer>>();
-//        List<Round> rounds = null;
-//        if (bowId != null) {
-//            rounds = roundDao.findRounds(userId, bowId, fromDate, toDate, distance);
-//        } else {
-//            rounds = roundDao.findRounds(userId, fromDate, toDate, distance);
-//        }
-//        LOGGER.info("Got rounds from db: Number of rows {}", rounds.size());
-//        for (Round round : rounds) {
-//            if (!result.containsKey(round.getShootDate())) {
-//                Map<String, Integer> map = new HashMap<String, Integer>();
-//                map.put(VERTICAL_LOW, 0);
-//                map.put(VERTICAL_CENTER, 0);
-//                map.put(VERTICAL_HIGH, 0);
-//                map.put(HORIZONTAL_LEFT, 0);
-//                map.put(HORIZONTAL_CENTER, 0);
-//                map.put(HORIZONTAL_RIGHT, 0);
-//                if (round.getPerfectScored()) {
-//                    map.put(PERFECT, 0);
-//                }
-//                if (round.getMissScored()) {
-//                    map.put(MISSED, 0);
-//                }
-//                result.put(round.getShootDate(), map);
-//            }
-//            Map<String, Integer> dateResult = result.get(round.getShootDate());
-//            if (round.getVerticalLow() != null && round.getVerticalCenter() != null && round.getVerticalHigh() != null) {
-//                dateResult.put(VERTICAL_LOW, dateResult.get(VERTICAL_LOW) + round.getVerticalLow());
-//                dateResult.put(VERTICAL_CENTER, dateResult.get(VERTICAL_CENTER) + round.getVerticalCenter());
-//                dateResult.put(VERTICAL_HIGH, dateResult.get(VERTICAL_HIGH) + round.getVerticalHigh());
-//            }
-//            if (round.getHorizontalLeft() != null && round.getHorizontalCenter() != null && round.getHorizontalRight() != null) {
-//                dateResult.put(HORIZONTAL_LEFT, dateResult.get(HORIZONTAL_LEFT) + round.getHorizontalLeft());
-//                dateResult.put(HORIZONTAL_CENTER, dateResult.get(HORIZONTAL_CENTER) + round.getHorizontalCenter());
-//                dateResult.put(HORIZONTAL_RIGHT, dateResult.get(HORIZONTAL_RIGHT) + round.getHorizontalRight());
-//            }
-//            if (round.getPerfectScored() && dateResult.containsKey(PERFECT)) {
-//                dateResult.put(PERFECT, dateResult.get(PERFECT) + round.getPerfect());
-//            }
-//            if (round.getMissScored() && dateResult.containsKey(MISSED)) {
-//                dateResult.put(MISSED, dateResult.get(MISSED) + round.getMiss());
-//            }
-//        }
+        List<Round> rounds = roundDao.findRounds(userId, fromDate, toDate, mindistance, maxdistance);
+        LOGGER.info("Got rounds from db: Number of rows {}", rounds.size());
+        for (Round round : rounds) {
+            if (!result.containsKey(round.getShootDate())) {
+                Map<String, Integer> map = new HashMap<String, Integer>();
+                map.put(VERTICAL_LOW, 0);
+                map.put(VERTICAL_CENTER, 0);
+                map.put(VERTICAL_HIGH, 0);
+                map.put(HORIZONTAL_LEFT, 0);
+                map.put(HORIZONTAL_CENTER, 0);
+                map.put(HORIZONTAL_RIGHT, 0);
+                if (round.getPerfectScored()) {
+                    map.put(PERFECT, 0);
+                }
+                if (round.getMissScored()) {
+                    map.put(MISSED, 0);
+                }
+                result.put(round.getShootDate(), map);
+            }
+            Map<String, Integer> dateResult = result.get(round.getShootDate());
+            if (round.getVerticalLow() != null && round.getVerticalCenter() != null && round.getVerticalHigh() != null) {
+                dateResult.put(VERTICAL_LOW, dateResult.get(VERTICAL_LOW) + round.getVerticalLow());
+                dateResult.put(VERTICAL_CENTER, dateResult.get(VERTICAL_CENTER) + round.getVerticalCenter());
+                dateResult.put(VERTICAL_HIGH, dateResult.get(VERTICAL_HIGH) + round.getVerticalHigh());
+            }
+            if (round.getHorizontalLeft() != null && round.getHorizontalCenter() != null && round.getHorizontalRight() != null) {
+                dateResult.put(HORIZONTAL_LEFT, dateResult.get(HORIZONTAL_LEFT) + round.getHorizontalLeft());
+                dateResult.put(HORIZONTAL_CENTER, dateResult.get(HORIZONTAL_CENTER) + round.getHorizontalCenter());
+                dateResult.put(HORIZONTAL_RIGHT, dateResult.get(HORIZONTAL_RIGHT) + round.getHorizontalRight());
+            }
+            if (round.getPerfectScored() && dateResult.containsKey(PERFECT)) {
+                dateResult.put(PERFECT, dateResult.get(PERFECT) + round.getPerfect());
+            }
+            if (round.getMissScored() && dateResult.containsKey(MISSED)) {
+                dateResult.put(MISSED, dateResult.get(MISSED) + round.getMiss());
+            }
+        }
         LOGGER.info("Finished getting totals by date");
         return result;
     }

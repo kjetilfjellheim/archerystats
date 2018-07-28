@@ -56,3 +56,7 @@ body {
 .panel {
   margin-bottom: 5px;
 }
+
+.margin-left {
+  margin-left: 10px;
+}
