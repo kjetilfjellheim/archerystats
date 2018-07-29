@@ -17,4 +17,8 @@ public interface StatisticsService {
 
     Map<String, Integer> getHorizontalTotals(String userid, Date fromDate, Date toDate, Integer mindistance, Integer maxdistance);
 
+    Map<String, Integer> getVerticalLastTrainingTotals(String userid, Integer mindistance, Integer maxdistance);
+
+    Map<String, Integer> getHorizontalLastTrainingTotals(String userid, Integer mindistance, Integer maxdistance);    
+    
 }

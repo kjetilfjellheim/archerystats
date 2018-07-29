@@ -47,6 +47,36 @@ generateVertical(dateRange: Date[], mindistance: number, maxdistance: number): v
      });
    }
 
+   generateVerticalLastTraining(mindistance: number, maxdistance: number): void {
+     this.totalStatsService
+      .getStatisticsVerticalLastTrainingTotal(mindistance, maxdistance)
+      .subscribe(total =>
+        {
+          let verticalData = [];
+          verticalData.push(total.percentHigh);
+          verticalData.push(total.percentCenter);
+          verticalData.push(total.percentLow);
+          this.data = {
+               labels: ['High', 'Center', 'Low'],
+               datasets: [
+                   {
+                     data: verticalData,
+                     backgroundColor: [
+                         "#FF6384",
+                         "#36A2EB",
+                         "#FFCE56"
+                     ],
+                     hoverBackgroundColor: [
+                         "#FF6384",
+                         "#36A2EB",
+                         "#FFCE56"
+                     ]
+                   }
+               ]
+           }
+        });
+      }
+
    generateHorizontal(dateRange: Date[], mindistance: number, maxdistance: number): void {
      this.totalStatsService
       .getStatisticsHorizontalTotal(dateRange, mindistance, maxdistance)
@@ -76,5 +106,35 @@ generateVertical(dateRange: Date[], mindistance: number, maxdistance: number): v
            }
         });
       }
+
+      generateHorizontalLastTraining(mindistance: number, maxdistance: number): void {
+        this.totalStatsService
+         .getStatisticsHorizontalLastTrainingTotal(mindistance, maxdistance)
+         .subscribe(total =>
+           {
+             let horizontalData = [];
+             horizontalData.push(total.percentLeft);
+             horizontalData.push(total.percentCenter);
+             horizontalData.push(total.percentRight);
+             this.data = {
+                  labels: ['Left', 'Center', 'Right'],
+                  datasets: [
+                      {
+                        data: horizontalData,
+                        backgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56"
+                        ],
+                        hoverBackgroundColor: [
+                            "#FF6384",
+                            "#36A2EB",
+                            "#FFCE56"
+                        ]
+                      }
+                  ]
+              }
+           });
+         }
 
 }

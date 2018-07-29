@@ -46,6 +46,22 @@ public class StatisticsController {
         LOGGER.info("Statistics horizontal total");
         User user = (User)httpSession.getAttribute(LoginController.LOGIN_SESSION_NAME);                
         return statisticsService.getHorizontalTotals(user.getId(), fromDate, toDate, mindistance, maxdistance);
+    }   
+    
+    @ResponseBody
+    @RequestMapping(value = "/request/statistics/verticaltotalslasttraining", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Map<String, Integer> getVerticalLastTrainingTotals(HttpServletResponse httpServletResponse, HttpSession httpSession, @RequestParam("mindistance") Integer mindistance, @RequestParam("maxdistance") Integer maxdistance) throws JsonProcessingException {
+        LOGGER.info("Statistics vertical total");
+        User user = (User)httpSession.getAttribute(LoginController.LOGIN_SESSION_NAME);        
+        return statisticsService.getVerticalLastTrainingTotals(user.getId(), mindistance, maxdistance);
+    }    
+
+    @ResponseBody
+    @RequestMapping(value = "/request/statistics/horizontaltotalslasttraining", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Map<String, Integer> getHorizontalLastTrainingTotals(HttpServletResponse httpServletResponse, HttpSession httpSession, @RequestParam("mindistance") Integer mindistance, @RequestParam("maxdistance") Integer maxdistance) throws JsonProcessingException {
+        LOGGER.info("Statistics horizontal total");
+        User user = (User)httpSession.getAttribute(LoginController.LOGIN_SESSION_NAME);                
+        return statisticsService.getHorizontalLastTrainingTotals(user.getId(), mindistance, maxdistance);
     }    
         
     @ResponseBody

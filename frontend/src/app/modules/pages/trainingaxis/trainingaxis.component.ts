@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ViewContainerRef, ComponentRef, ComponentFactoryResolver, ComponentFactory }    from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ViewContainerRef, ComponentRef, ComponentFactoryResolver, ComponentFactory }    from '@angular/core';
 
 import { ToolbarDataService } from '../../data/toolbar/toolbardata.service';
 
@@ -10,7 +10,7 @@ import { OvertimeStatsComponent } from '../../data/overtimestats/overtimestats.c
     styleUrls: ['./trainingaxis.css'],
     entryComponents: [ TotalStatsComponent, OvertimeStatsComponent ]
 })
-export class TrainingAxisComponent implements OnInit {
+export class TrainingAxisComponent implements OnInit, OnDestroy {
 
   @ViewChild("axisAccuracyContainer", { read: ViewContainerRef }) axisAccuracyContainer : any;
   @ViewChild("axisAccuracyHorizontalContainer", { read: ViewContainerRef }) axisAccuracyHorizontalContainer : any;
@@ -18,7 +18,10 @@ export class TrainingAxisComponent implements OnInit {
   verticalAccuracyComponentRef: ComponentRef<any>;
   horizontalAccuracyComponentRef: ComponentRef<any>;
   accuracyComponentRef: ComponentRef<any>;
-  constructor(private resolver: ComponentFactoryResolver ,private toolbarDataService : ToolbarDataService) {}
+
+  constructor(private resolver: ComponentFactoryResolver ,private toolbarDataService : ToolbarDataService) {
+
+  }
 
   ngOnInit(): void {
     this.toolbarDataService.showDateRange = true;
@@ -29,6 +32,21 @@ export class TrainingAxisComponent implements OnInit {
     this.initVerticalAccuracyContainer();
     this.initHorizontalAccuracyContainer();
     this.regenerate();
+  }
+
+  ngOnDestroy(): void {
+    if (this.verticalAccuracyComponentRef) {
+      this.verticalAccuracyComponentRef.destroy();
+    }
+    if (this.horizontalAccuracyComponentRef) {
+      this.horizontalAccuracyComponentRef.destroy();
+    }
+    if (this.verticalAccuracyComponentRef) {
+      this.verticalAccuracyComponentRef.destroy();
+    }
+    if (this.toolbarDataService) {
+      this.toolbarDataService.removeEventListener(this);
+    }
   }
 
   public regenerate() {

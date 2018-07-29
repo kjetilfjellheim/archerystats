@@ -63,42 +63,48 @@ generate(dateRange: Date[], mindistance: number, maxdistance: number): void {
                   data: verticalLowPercentLineData,
                   label: 'Vertical low percentage',
                   borderColor: '#ff8888',
-                  backgroundColor: 'rgba(0, 0, 0, 0)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  lineWidth: 5
                 },
                 {
                   data: verticalCenterPercentLineData,
                   label: 'Vertical center percentage',
                   borderColor: '#aaffaa',
-                  backgroundColor: 'rgba(0, 0, 0, 0)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  lineWidth: 20
                 },
                 {
                   data: verticalHighPercentLineData,
                   label: 'Vertical high percentage',
                   borderColor: '#8888ff',
-                  backgroundColor: 'rgba(0, 0, 0, 0)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  lineWidth: 5
                 },
                 {
                   data: horizontalLeftPercentLineData,
                   label: 'Horizontal left percentage',
                   borderColor: '#ff0000',
-                  backgroundColor: 'rgba(0, 0, 0, 0)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  lineWidth: 5
                 },
                 {
                   data: horizontalCenterPercentLineData,
                   label: 'Horizontal center percentage',
                   borderColor: '#00ff00',
-                  backgroundColor: 'rgba(0, 0, 0, 0)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  lineWidth: 20
                 },
                 {
                   data: horizontalRightPercentLineData,
                   label: 'Horizontal right percentage',
                   borderColor: '#0000ff',
-                  backgroundColor: 'rgba(0, 0, 0, 0)'
+                  backgroundColor: 'rgba(0, 0, 0, 0)',
+                  lineWidth: 5
                 }
             ]
         }
         this.options = {
-          responsive: false,
+          responsive: true,
           maintainAspectRatio: true,
           scales: {
                 xAxes: [{

@@ -3,14 +3,46 @@
     <div class="col-md-12">
       <toolbar></toolbar>
     </div>
+  </div>
+  <div class="row">
     <div class="col-md-12">
-      <template #axisAccuracyContainer></template>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">Accuracy graph.</div>
+        <div class="panel-body">
+          <p class="small">This graph show accuracy parameters over time based on the parameters on the top of the page.</p>
+          <template #axisAccuracyContainer></template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">Horizontal accuracy.</div>
+        <div class="panel-body">
+          <p class="small">Total horizontal accuracy over the specified time.</p>
+          <template #axisAccuracyHorizontalContainer></template>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
-      <template #axisAccuracyHorizontalContainer></template>
-    </div>
-    <div class="col-md-6">
-      <template #axisAccuracyVerticalContainer></template>
+      <div class="panel panel-info">
+        <div class="panel-heading">Vertical accuracy.</div>
+        <div class="panel-body">
+          <p class="small">Total vertical accuracy over the specified time.</p>
+          <template #axisAccuracyVerticalContainer></template>
+        </div>
+      </div>
     </div>
   </div>
 </div>

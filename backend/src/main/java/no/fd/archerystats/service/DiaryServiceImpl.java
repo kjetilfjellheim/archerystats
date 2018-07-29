@@ -23,12 +23,12 @@ public class DiaryServiceImpl implements DiaryService {
     private DiaryDao diaryDao;    
 
     @Transactional
-    public List<Diary> getDiary(String userId, Date fromDate, Date toDate, Integer spt) {
+    public List<Diary> getDiary(String userId, Date fromDate, Date toDate, Integer spt, Integer maxentries) {
         List<Diary> diary = null;
         if (spt != null) {
-            diary = diaryDao.findDiary(userId, fromDate, toDate, spt);
+            diary = diaryDao.findDiary(userId, fromDate, toDate, spt, maxentries);
         } else {
-            diary = diaryDao.findDiary(userId, fromDate, toDate);
+            diary = diaryDao.findDiary(userId, fromDate, toDate, maxentries);
         }     
         return diary;
     }

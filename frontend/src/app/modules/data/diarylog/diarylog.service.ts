@@ -17,6 +17,12 @@ export class DiaryLogService {
                     .catch(this.handleError);
     }
 
+    getDiariesWithMaxEntries(dateRange: Date[], maxentries: number) : Observable<Diary[]> {
+        return this.http.get("/archerystats/request/diary/log?maxentries=" + maxentries + "&fromDate=" + dateRange[0].toISOString().substring(0, 10) + "&toDate=" + dateRange[1].toISOString().substring(0, 10))
+                    .map(this.extractResult)
+                    .catch(this.handleError);
+    }
+
     private extractResult(response : Response) : Diary[] {
         let vals : Diary[] = response.json();
         vals.forEach(function(e) {

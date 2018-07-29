@@ -10,6 +10,6 @@ import no.fd.archerystats.service.pojo.Diary;
  */
 public interface DiaryService {
     
-    List<Diary> getDiary(String userId, Date fromDate, Date toDate, Integer spt);
+    List<Diary> getDiary(String userId, Date fromDate, Date toDate, Integer spt, Integer maxentries);
     
 }

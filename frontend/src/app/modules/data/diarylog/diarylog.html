@@ -1,33 +1,37 @@
-<div class="row">
-  <div class="col-md-12">
-    <toolbar></toolbar>
-  </div>
+<div *ngIf="!simple">
+  <p-dataTable [value]="diaries" sortField="date" sortOrder="-1" [rows]="5" [paginator]="true" [pageLinks]="8">
+      <p-column field="date" header="Date" [sortable]="true" [filter]="true">
+        <ng-template let-row="rowData" pTemplate="body">
+          <p>{{ row.date | date:'mediumDate' }}</p>
+        </ng-template>
+      </p-column>
+      <p-column field="comment" header="Comment" [sortable]="true" [filter]="true">
+        <ng-template let-row="rowData" pTemplate="body">
+          {{ row.comment }}
+        </ng-template>
+      </p-column>
+      <p-column field="minutes" header="Minutes" [sortable]="true" [filter]="true"></p-column>
+      <p-column field="spt" header="SPT" [sortable]="true">
+      </p-column>
+  </p-dataTable>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <hr>
-        </div>
-        <div class="col-md-12">
-          <p-dataTable [value]="diaries" sortField="date" sortOrder="-1" [rows]="10" [paginator]="true" [pageLinks]="8" [rowsPerPageOptions]="[5,10,20]">
-              <p-column field="date" header="Date" [sortable]="true" [filter]="true">
-                <ng-template let-row="rowData" pTemplate="body">
-                  <p>{{ row.date | date:'mediumDate' }}</p>
-                </ng-template>
-              </p-column>
-              <p-column field="comment" header="Comment" [sortable]="true" [filter]="true">
-                <ng-template let-row="rowData" pTemplate="body">
-                  {{ row.comment }}
-                </ng-template>
-              </p-column>
-              <p-column field="minutes" header="Minutes" [sortable]="true" [filter]="true"></p-column>
-              <p-column field="spt" header="SPT" [sortable]="true">
-              </p-column>
-          </p-dataTable>
-        </div>
-      </div>
-    </div>
-  </div>
+<div *ngIf="simple" class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Comment</th>
+        <th>Minutes</th>
+        <th>SPT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let diary of diaries">
+        <td class="small"><p class="small">{{ diary.date | date:'mediumDate' }}</p></td>
+        <td class="small"><p class="small">{{ diary.comment }}</p></td>
+        <td class="small"><p class="small">{{ diary.minutes }}</p></td>
+        <td class="small"><p class="small">{{ diary.spt }}</p></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

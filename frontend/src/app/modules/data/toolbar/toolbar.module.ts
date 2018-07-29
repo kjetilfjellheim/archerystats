@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common'
 
 import { RequestOptions }         from '@angular/http';
 
-// Application components
 import { ToolbarComponent }            from "./toolbar.component";
 
 import { ToolbarService }            from "./toolbar.service";

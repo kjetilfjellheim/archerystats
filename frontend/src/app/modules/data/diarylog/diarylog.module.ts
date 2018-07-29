@@ -11,10 +11,9 @@ import { DiaryLogComponent }    from "./diarylog.component";
 import { DiaryLogService }      from "./diarylog.service";
 
 import { ChartModule, DataTableModule, ListboxModule, SharedModule, GrowlModule, DropdownModule, TabViewModule, CalendarModule }    from 'primeng/primeng';
-import { ToolbarModule } from '../toolbar/toolbar.module';
 
 @NgModule({
-  imports:      [ BrowserModule, ToolbarModule, DataTableModule, BrowserAnimationsModule, ChartModule, FormsModule, ReactiveFormsModule, HttpModule, GrowlModule, CalendarModule, DropdownModule, SharedModule, TabViewModule ],
+  imports:      [ BrowserModule, DataTableModule, BrowserAnimationsModule, ChartModule, FormsModule, ReactiveFormsModule, HttpModule, GrowlModule, CalendarModule, DropdownModule, SharedModule, TabViewModule ],
   exports:      [ DiaryLogComponent ],
   declarations: [ DiaryLogComponent ],
   bootstrap:    [ ],

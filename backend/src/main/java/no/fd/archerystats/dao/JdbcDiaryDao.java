@@ -32,14 +32,22 @@ public class JdbcDiaryDao implements DiaryDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
    
-    public List<Diary> findDiary(String userId, Date fromDate, Date toDate) {
+    public List<Diary> findDiary(String userId, Date fromDate, Date toDate, Integer maxentries) {
         LOGGER.info("Find diary");
-        return this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and (date - interval '1 day') <= ? order by date", new Object[]{userId, fromDate, toDate}, diaryRowMapper);
+        List<Diary> entries = this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and (date - interval '1 day') <= ? order by date desc", new Object[]{userId, fromDate, toDate}, diaryRowMapper);
+        if (maxentries != null) {
+            entries = entries.size() > maxentries ? entries.subList(0, maxentries) : entries;
+        }
+        return entries;
     }
 
-    public List<Diary> findDiary(String userId, Date fromDate, Date toDate, Integer spt) {
+    public List<Diary> findDiary(String userId, Date fromDate, Date toDate, Integer spt, Integer maxentries) {
         LOGGER.info("Find diary");
-        return this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and (date - interval '1 day') <= ? and spt = ? order by date", new Object[]{userId, fromDate, toDate, spt}, diaryRowMapper);
+        List<Diary> entries = this.jdbcTemplate.query("select * from archerystats_v1.diary where id_user = ? and date >= ? and (date - interval '1 day') <= ? and spt = ? order by date desc", new Object[]{userId, fromDate, toDate, spt}, diaryRowMapper);
+        if (maxentries != null) {
+            entries = entries.size() > maxentries ? entries.subList(0, maxentries) : entries;
+        }
+        return entries;        
     }
 
 }

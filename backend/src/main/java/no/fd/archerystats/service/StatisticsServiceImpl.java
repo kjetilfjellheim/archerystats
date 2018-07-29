@@ -100,9 +100,9 @@ public class StatisticsServiceImpl implements StatisticsService {
         Map<Date, Integer> result = new TreeMap();
         List<Diary> diaries = null;
         if (spt != null) {
-            diaries = diaryDao.findDiary(userId, fromDate, toDate, spt);
+            diaries = diaryDao.findDiary(userId, fromDate, toDate, spt, null);
         } else {
-            diaries = diaryDao.findDiary(userId, fromDate, toDate);
+            diaries = diaryDao.findDiary(userId, fromDate, toDate, null);
         }
         for (Diary diary : diaries) {
             Date date = getWeekStart(diary.getDate().getTime());
@@ -184,6 +184,50 @@ public class StatisticsServiceImpl implements StatisticsService {
         map.put(HORIZONTAL_RIGHT, horizontalRight);
         LOGGER.info("Finished getting totals");
         return map;
+    }
+
+    public Map<String, Integer> getVerticalLastTrainingTotals(String userid, Integer mindistance, Integer maxdistance) {
+        LOGGER.info("Getting totals");
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        List<Round> rounds = roundDao.findRoundsLastTraining(userid, mindistance, maxdistance);
+        LOGGER.info("Got rounds from db: Number of rows {}", rounds.size());
+        int verticalLow = 0;
+        int verticalCenter = 0;
+        int verticalHigh = 0;
+        for (Round round : rounds) {
+            if (round.getVerticalLow() != null && round.getVerticalCenter() != null && round.getVerticalHigh() != null) {
+                verticalLow += round.getVerticalLow();
+                verticalCenter += round.getVerticalCenter();
+                verticalHigh += round.getVerticalHigh();
+            }
+        }
+        map.put(VERTICAL_LOW, verticalLow);
+        map.put(VERTICAL_CENTER, verticalCenter);
+        map.put(VERTICAL_HIGH, verticalHigh);
+        LOGGER.info("Finished getting totals");
+        return map;        
+    }
+
+    public Map<String, Integer> getHorizontalLastTrainingTotals(String userid, Integer mindistance, Integer maxdistance) {
+        LOGGER.info("Getting totals");
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        List<Round> rounds = roundDao.findRoundsLastTraining(userid, mindistance, maxdistance);
+        LOGGER.info("Got rounds from db: Number of rows {}", rounds.size());
+        int horizontalLeft = 0;
+        int horizontalCenter = 0;
+        int horizontalRight = 0;
+        for (Round round : rounds) {
+            if (round.getHorizontalLeft() != null && round.getHorizontalCenter() != null && round.getHorizontalRight() != null) {
+                horizontalLeft += round.getHorizontalLeft();
+                horizontalCenter += round.getHorizontalCenter();
+                horizontalRight += round.getHorizontalRight();
+            }
+        }
+        map.put(HORIZONTAL_LEFT, horizontalLeft);
+        map.put(HORIZONTAL_CENTER, horizontalCenter);
+        map.put(HORIZONTAL_RIGHT, horizontalRight);
+        LOGGER.info("Finished getting totals");
+        return map;        
     }
 
 }

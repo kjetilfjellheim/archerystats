@@ -35,10 +35,11 @@ public class DiaryController {
     
     @ResponseBody
     @RequestMapping(value = "/request/diary/log", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Diary> getDiary(HttpServletResponse httpServletResponse, HttpSession httpSession, @RequestParam(value="fromDate", defaultValue = "1970-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate, @RequestParam(value="toDate", defaultValue = "2099-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate, @RequestParam(value="spt", required = false) Integer spt) throws JsonProcessingException {
+    public List<Diary> getDiary(HttpServletResponse httpServletResponse, HttpSession httpSession, @RequestParam(value="fromDate", defaultValue = "1970-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date fromDate, @RequestParam(value="toDate", defaultValue = "2099-01-01") @DateTimeFormat(pattern="yyyy-MM-dd") Date toDate, @RequestParam(value="spt", required = false) Integer spt, @RequestParam(value="maxentries", required = false) Integer maxentries) throws JsonProcessingException {
         LOGGER.info("Diary log");  
         User user = (User)httpSession.getAttribute(LoginController.LOGIN_SESSION_NAME);                        
-        return diaryService.getDiary(user.getId(), fromDate, toDate, spt);
-    }  
+        return diaryService.getDiary(user.getId(), fromDate, toDate, spt, maxentries);
+    }
     
+
 }

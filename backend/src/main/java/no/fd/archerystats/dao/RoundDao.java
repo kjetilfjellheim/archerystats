@@ -16,5 +16,7 @@ public interface RoundDao {
     String insert(String idUser, String idBow, Date shootDate, Integer round, Boolean missScored, Boolean perfectScored, Boolean badshotScored, Integer miss, Integer perfect, Integer badShots, Integer distance, Integer horizontalLeft, Integer horizontalCenter, Integer horizontalRight, Integer verticalHigh, Integer verticalCenter, Integer verticalLow);
 
     void delete(String idUser, String idBow, Date shootDate);
+
+    List<Round> findRoundsLastTraining(String userid, Integer mindistance, Integer maxdistance);
     
 }

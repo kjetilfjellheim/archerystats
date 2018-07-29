@@ -11,8 +11,8 @@ import no.fd.archerystats.service.pojo.Diary;
  */
 public interface DiaryDao {
     
-    List<Diary> findDiary(String userId, Date fromDate, Date toDate);
+    List<Diary> findDiary(String userId, Date fromDate, Date toDate, Integer maxentries);
 
-    List<Diary> findDiary(String userId, Date fromDate, Date toDate, Integer spt);
+    List<Diary> findDiary(String userId, Date fromDate, Date toDate, Integer spt, Integer maxentries);
     
 }

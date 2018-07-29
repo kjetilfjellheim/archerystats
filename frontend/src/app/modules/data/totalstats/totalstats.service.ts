@@ -23,6 +23,18 @@ export class TotalStatsService {
                     .catch(this.handleError);
     }
 
+    public getStatisticsHorizontalLastTrainingTotal(minDistance: number, maxDistance: number) : Observable<HorizontalTotal> {
+        return this.http.get("/archerystats/request/statistics/horizontaltotalslasttraining?mindistance=" + minDistance + "&maxdistance=" + maxDistance)
+                    .map(this.extractHorizontalTotal)
+                    .catch(this.handleError);
+    }
+
+    public getStatisticsVerticalLastTrainingTotal(minDistance: number, maxDistance: number) : Observable<VerticalTotal> {
+        return this.http.get("/archerystats/request/statistics/verticaltotalslasttraining?mindistance=" + minDistance + "&maxdistance=" + maxDistance)
+                    .map(this.extractVerticalTotal)
+                    .catch(this.handleError);
+    }
+
     private extractVerticalTotal(response : Response) : VerticalTotal {
         let total = new VerticalTotal();
         total.percentHigh = (response.json().verticalHigh * 100) / (response.json().verticalHigh + response.json().verticalCenter + response.json().verticalLow);

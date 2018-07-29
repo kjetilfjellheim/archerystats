@@ -47,4 +47,9 @@ public class JdbcRoundDao implements RoundDao {
         return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and shoot_date >= ? and (shoot_date - interval '1 day') <= ? and distance >= ? and distance <= ? order by shoot_date", new Object[]{userid, fromDate, toDate, mindistance, maxdistance}, roundRowMapper);
     }
 
+    public List<Round> findRoundsLastTraining(String userid, Integer mindistance, Integer maxdistance) {
+        LOGGER.info("Find rounds");
+        return this.jdbcTemplate.query("select * from archerystats_v1.round where id_user = ? and distance >= ? and distance <= ? and shoot_date = (select max(shoot_date) from archerystats_v1.round where id_user = ?) order by shoot_date", new Object[]{userid, mindistance, maxdistance, userid}, roundRowMapper);
+    }
+
 }
